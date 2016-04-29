@@ -1,10 +1,9 @@
-var webpack = require('webpack');
-var Path = require('path');
-
-var commonsPlugin =
-    new webpack.optimize.CommonsChunkPlugin({ name: 'common', filename: './js/common.js', minChunks: 4 });
+var path = require('path');
 
 var config = {
+	name: "rendering",
+	target: "node",
+		
     entry: {
         app: './client/basic.js',
         
@@ -14,23 +13,15 @@ var config = {
     output: {
         filename: './js/[name].js',
         chunkFilename: './js/[id].chunk.js',
-        path: './build',
+        path: path.resolve("./build"),
         publicPath: '/'
     },
 
     module: {
         loaders: [
             { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-            { test: /\.json$/, loader: 'json-loader', exclude: /node_modules/ },
-            { test: /\.(html)$/, loader: 'file-loader?name=[name].[ext]', exclude: /node_modules/ }
+            { test: /\.html$/, loader: 'file-loader?name=[name].[ext]', exclude: /node_modules/ }
         ]
-    },
-
-    devServer: {
-        port: process.env.PORT,
-        publicPath: '/',
-        host: process.env.HOST,
-        stats: 'minimal'
     }
 };
 
