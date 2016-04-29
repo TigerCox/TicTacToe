@@ -1,9 +1,6 @@
 var path = require('path');
 
 var config = {
-	name: "rendering",
-	target: "node",
-		
     entry: {
         app: './client/basic.js',
         
