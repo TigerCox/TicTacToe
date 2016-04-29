@@ -30,8 +30,7 @@
     "react-input-placeholder": "^1.2.0",
     "react-router": "1.0.0-rc4",
     "rwlock": "4.0.0",
-    "superagent": "1.4.0",
-    "underscore": "^1.7.0"
+    "superagent": "1.4.0"
   },
   "devDependencies": {
     "babel-core": "^5.8.24",
