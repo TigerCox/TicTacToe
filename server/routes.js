@@ -15,7 +15,7 @@ var routes = [
     	path: '/board',
     	handler: function(request, response) {
     		board.get(request.query.game_identifier, function(json) {
-    			response(json).type('application/json');
+    			response(json).type('application/json').header('Access-Control-Allow-Origin', '*');
     		});
         }
     },
@@ -24,7 +24,7 @@ var routes = [
     	path: '/player',
     	handler: function(request, response) {
     		board.player(request.query.game_identifier, function(json) {
-    			response(json).type('application/json');
+    			response(json).type('application/json').header('Access-Control-Allow-Origin', '*');
     		});
         }
     },
@@ -33,7 +33,7 @@ var routes = [
     	path: '/set',
     	handler: function(request, response) {
     		board.set(request.query.game_identifier, request.payload.player_identifier, request.payload.x, request.payload.y, function(json) {
-    			response(json).type('application/json');
+    			response(json).type('application/json').header('Access-Control-Allow-Origin', '*');
     		});
         }
     }

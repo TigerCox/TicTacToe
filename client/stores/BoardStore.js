@@ -21,7 +21,8 @@ class BoardStore extends Store {
     __onDispatch(action) {
         switch (action.type) {
             case ActionTypes.actionTypes.SET_BOARD:
-		this._state.board = action.payload;
+            	this._state.board = action.payload;
+            	this.__emitChange();
                 break;
         }
     }
