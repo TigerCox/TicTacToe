@@ -1,4 +1,5 @@
-module.exports = {
-    SET_BOARD: 1,
-    SET_WINNER: 2
+module.exports.actionTypes = {
+    SET_BOARD: null,
+    SET_WINNER: null,
+    SET_POSITION: null
 }

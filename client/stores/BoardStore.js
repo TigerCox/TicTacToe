@@ -8,7 +8,6 @@ class BoardStore extends Store {
     constructor(dispatcher) {
         super(dispatcher);
         var board = [[0,0,0],[0,0,0],[0,0,0]];
-        board[0][0] = constants.player.X;
         this._state = {
             board: board
         };
@@ -21,7 +20,8 @@ class BoardStore extends Store {
     __onDispatch(action) {
         switch (action.type) {
             case ActionTypes.actionTypes.SET_BOARD:
-		this._state.board = action.payload;
+            	this._state.board = action.payload;
+            	this.__emitChange();
                 break;
         }
     }

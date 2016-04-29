@@ -13,9 +13,23 @@ var AppUI = React.createClass({
 
     render: function() {
         return (
-            <div>
-		{this.props.board[0][0]}
-            </div>
+    		<table>
+            	<tr>
+            		<td>{this.props.board[0][0]}</td>
+            		<td>{this.props.board[0][1]}</td>
+            		<td>{this.props.board[0][2]}</td>
+        		</tr>
+            	<tr>
+	        		<td>{this.props.board[1][0]}</td>
+	        		<td>{this.props.board[1][1]}</td>
+	        		<td>{this.props.board[1][2]}</td>
+        		</tr>
+        		<tr>
+		    		<td>{this.props.board[2][0]}</td>
+		    		<td>{this.props.board[2][1]}</td>
+		    		<td>{this.props.board[2][2]}</td>
+	    		</tr>
+            </table>
         );
     }
 });
