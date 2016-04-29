@@ -8,7 +8,6 @@ class BoardStore extends Store {
     constructor(dispatcher) {
         super(dispatcher);
         var board = [[0,0,0],[0,0,0],[0,0,0]];
-        board[0][0] = constants.player.X;
         this._state = {
             board: board
         };
