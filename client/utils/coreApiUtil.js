@@ -7,15 +7,21 @@ var appUrl = config.services.api.protocol + config.services.api.host;
 
 var api = {
     startGame: {
-        retrieve: function(callback) {
+        retrieve: function(game_identifier) {
             request
-                .get(appUrl + '/board')
+                .get(appUrl + '/player')
+                .query({ game_identifier: game_identifier })
                 .end(function(error, res) {
-                	var board = res.body.board;
-                    Dispatcher.dispatch({
-                        type: ActionTypes.actionTypes.SET_BOARD,
-                        payload: board 
-                    });	
+                	request
+	                	.get(appUrl + '/board')
+	                	.query({ game_identifier: res.body.game_identifier })
+	                    .end(function(error, res) {
+	                    	var board = res.body.board;
+	                        Dispatcher.dispatch({
+	                            type: ActionTypes.actionTypes.SET_BOARD,
+	                            payload: board 
+	                        });	
+	                    });
                 });
         }
     }
