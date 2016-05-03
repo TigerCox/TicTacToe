@@ -45,7 +45,12 @@ var api = {
                         type: ActionTypes.actionTypes.SET_BOARD,
                         payload: res.body.board 
                     });
-                	// TODO: Check for res.body.winner
+                    if (res.body.hasOwnProperty('winner')) {
+                        Dispatcher.dispatch({
+                            type: ActionTypes.actionTypes.GAME_RESULT,
+                            payload: res.body.winner
+                        });
+                    }
                 });
     	}
     }
