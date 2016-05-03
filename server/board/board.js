@@ -34,7 +34,7 @@ var board = {
 		}
 		
 		var winner = this._hasWon(board);
-		if (winner === -1) {
+		if (winner == null) {
 			return { 
 				game_identifier: board.game_identifier, 
 				player_turn: board.player_turn,
@@ -56,7 +56,7 @@ var board = {
 						|| ((board.board[0][0] === board.board[1][0]) && (board.board[0][0] === board.board[2][0]))
 				)
 			) {
-			return board.board[0][0]
+			return board.board[0][0];
 		} else if (board.board[1][1] !== -1
 				&& (
 						((board.board[1][1] === board.board[0][1]) && (board.board[1][1] === board.board[2][1]))
@@ -65,16 +65,24 @@ var board = {
 							|| ((board.board[1][1] === board.board[0][2]) && (board.board[1][1] === board.board[2][0]))
 					)
 				) {
-			return board.board[1][1]
+			return board.board[1][1];
 		} else if (board.board[2][2] !== -1
 				&& (
 						((board.board[2][2] === board.board[0][2]) && (board.board[2][2] === board.board[1][2]))
 							|| ((board.board[2][2] === board.board[2][0]) && (board.board[2][2] === board.board[2][1]))
 					)
 				) {
-			return board.board[2][2]
+			return board.board[2][2];
+		} else {
+			for (var x = 0; x < board.board.length; x++) {
+				for (var y = 0; y < board.board[x].length; y++) {
+					if (board.board[x][y] === -1) {
+						return null;
+					}
+				}
+			} 
+			return -1;
 		}
-		return -1;
 	},
 	
 	_addPlayer: function _addPlayer(board) {
@@ -149,7 +157,7 @@ var board = {
 				
 				if (board.player_turn !== position
 						|| board.board[x][y] !== -1
-						|| this._hasWon(board) !== -1) {
+						|| this._hasWon(board) != null) {
 					release();
 					callback(this._returnBoard(board));
 				} else {
