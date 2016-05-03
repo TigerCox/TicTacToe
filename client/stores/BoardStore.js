@@ -9,7 +9,8 @@ class BoardStore extends Store {
         super(dispatcher);
         var board = [[0,0,0],[0,0,0],[0,0,0]];
         this._state = {
-            board: board
+            board: board,
+            result: null
         };
     }
 
@@ -23,6 +24,10 @@ class BoardStore extends Store {
             	this._state.board = action.payload;
             	this.__emitChange();
                 break;
+            case ActionTypes.actionTypes.GAME_RESULT:
+            	this._state.result = action.payload;
+            	this.__emitChange();
+                break;                
         }
     }
 
