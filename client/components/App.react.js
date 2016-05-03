@@ -1,5 +1,6 @@
 var React = require('react/addons');
 var Container = require('flux/utils').Container;
+var GameActionCreator = require('../actions/GameActionCreator');
 
 var ReactPropTypes = React.PropTypes;
 
@@ -15,22 +16,32 @@ var AppUI = React.createClass({
         return (
     		<table>
             	<tr>
-            		<td>{this.props.board[0][0]}</td>
-            		<td>{this.props.board[0][1]}</td>
-            		<td>{this.props.board[0][2]}</td>
+            		<td><button onClick={this._select} data-column="0" data-row="0">{this.props.board[0][0]}</button></td>
+            		<td><button onClick={this._select} data-column="1" data-row="0">{this.props.board[0][1]}</button></td>
+            		<td><button onClick={this._select} data-column="2" data-row="0">{this.props.board[0][2]}</button></td>
         		</tr>
             	<tr>
-	        		<td>{this.props.board[1][0]}</td>
-	        		<td>{this.props.board[1][1]}</td>
-	        		<td>{this.props.board[1][2]}</td>
+	        		<td><button onClick={this._select} data-column="0" data-row="1">{this.props.board[1][0]}</button></td>
+	        		<td><button onClick={this._select} data-column="1" data-row="1">{this.props.board[1][1]}</button></td>
+	        		<td><button onClick={this._select} data-column="2" data-row="1">{this.props.board[1][2]}</button></td>
         		</tr>
         		<tr>
-		    		<td>{this.props.board[2][0]}</td>
-		    		<td>{this.props.board[2][1]}</td>
-		    		<td>{this.props.board[2][2]}</td>
+	        		<td><button onClick={this._select} data-column="0" data-row="2">{this.props.board[2][0]}</button></td>
+	        		<td><button onClick={this._select} data-column="1" data-row="2">{this.props.board[2][1]}</button></td>
+	        		<td><button onClick={this._select} data-column="2" data-row="2">{this.props.board[2][2]}</button></td>
 	    		</tr>
             </table>
         );
+    },
+    
+    _select: function(event) {
+    	var column = event.target.getAttribute("data-column");
+    	var row = event.target.getAttribute("data-row")
+    	var data = {
+			'column': column,
+			'row': row
+		}
+    	GameActionCreator.setPosition(data);
     }
 });
 
