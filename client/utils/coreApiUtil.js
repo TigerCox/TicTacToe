@@ -14,17 +14,14 @@ var api = {
                 .query({ game_identifier: game_identifier })
                 .end(function(error, res) {
                 	window.sessionStorage.setItem('player_identifier', res.body.player_identifier);
-                	request
-	                	.get(appUrl + '/board')
-	                	.query({ game_identifier: res.body.game_identifier })
-	                    .end(function(error, res) {
-	                    	var board = res.body.board;
-	                        Dispatcher.dispatch({
-	                            type: ActionTypes.actionTypes.SET_BOARD,
-	                            payload: board 
-	                        });	
-	                    });
+                	boardRequest(res.body.game_identifier);
                 });
+            window.setInterval(function() {
+	            	var game_identifier = window.sessionStorage.getItem('game_identifier');
+	            	boardRequest(game_identifier, checkWinner);
+            	},
+            	500
+            );
         }
     },
     setPosition: {
@@ -45,15 +42,35 @@ var api = {
                         type: ActionTypes.actionTypes.SET_BOARD,
                         payload: res.body.board 
                     });
-                    if (res.body.hasOwnProperty('winner')) {
-                        Dispatcher.dispatch({
-                            type: ActionTypes.actionTypes.GAME_RESULT,
-                            payload: res.body.winner
-                        });
-                    }
+                    checkWinner(res.body);
                 });
     	}
     }
 };
+
+var boardRequest = function(game_identifier, callback) {
+	request
+		.get(appUrl + '/board')
+		.query({ game_identifier: game_identifier })
+		.end(function(error, res) {
+			var board = res.body.board;
+		    Dispatcher.dispatch({
+		        type: ActionTypes.actionTypes.SET_BOARD,
+		        payload: board 
+		    });
+		    if (callback !== undefined) {
+			    callback(res.body);
+		    }
+		});
+}
+
+var checkWinner = function(data) {
+    if (data.hasOwnProperty('winner')) {
+        Dispatcher.dispatch({
+            type: ActionTypes.actionTypes.GAME_RESULT,
+            payload: data.winner
+        });
+    }
+}
 
 module.exports = api;
